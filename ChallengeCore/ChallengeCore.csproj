@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;CHALLENGE_RUNNER</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data Files\cipher1.txt" />
+    <None Remove="Data Files\matrix.txt" />
+    <None Remove="Data Files\poker.txt" />
+    <None Remove="Data Files\sets.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data Files\cipher1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data Files\matrix.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data Files\poker.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data Files\sets.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NumberTheoryBig">
+      <HintPath>Referenced Assemblies\NumberTheoryBig.dll</HintPath>
+    </Reference>
+    <Reference Include="NumberTheoryLong">
+      <HintPath>Referenced Assemblies\NumberTheoryLong.dll</HintPath>
+    </Reference>
+    <Reference Include="Priority Queue">
+      <HintPath>Referenced Assemblies\Priority Queue.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Challenges\Advent of Code - 2016\" />
+    <Folder Include="Challenges\Code Chef\" />
+    <Folder Include="Challenges\Dr Ecco\" />
+    <Folder Include="Challenges\Euler Project\" />
+    <Folder Include="Challenges\Hacker Earth\" />
+    <Folder Include="Challenges\Hacker Rank\" />
+    <Folder Include="Challenges\Programming Challenges\" />
+    <Folder Include="Challenges\Sphere\" />
+    <Folder Include="Challenges\Talent Buddy\" />
+    <Folder Include="Challenges\UVA\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="morelinq" Version="3.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FS Challenges\FS Challenges.fsproj" />
+  </ItemGroup>
+
+</Project>
