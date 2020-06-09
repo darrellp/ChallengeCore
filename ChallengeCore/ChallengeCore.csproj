@@ -54,7 +54,6 @@
     <Folder Include="Challenges\Programming Challenges\" />
     <Folder Include="Challenges\Sphere\" />
     <Folder Include="Challenges\Talent Buddy\" />
-    <Folder Include="Challenges\UVA\" />
   </ItemGroup>
 
   <ItemGroup>
