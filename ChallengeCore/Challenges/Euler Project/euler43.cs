@@ -7,8 +7,8 @@ namespace ChallengeCore.Challenges
 { 
 	public static partial class ChallengeClass
 	{
-        [Challenge("Euler Project", "Prob 43",
-            "https://projecteuler.net/problem=43")]
+        [Challenge("Euler Project", "Prob 43", "https://projecteuler.net/problem=43")]
+        // ReSharper disable once UnusedMember.Global
         public class Euler43 : IChallenge
         {
             public void Solve()

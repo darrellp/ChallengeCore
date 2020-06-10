@@ -14,8 +14,39 @@
     <Compile Include="myutility.fs" />
     <Compile Include="Framework.fs" />
     <Compile Include="Test.fs" />
-    <Compile Include="Euler247.fs" />
+    <Compile Include="Euler1.fs" />
+    <Compile Include="Euler2.fs" />
+    <Compile Include="Euler3.fs" />
+    <Compile Include="Euler4.fs" />
+    <Compile Include="Euler5.fs" />
+    <Compile Include="Euler6.fs" />
+    <Compile Include="Euler7.fs" />
+    <Compile Include="Euler8.fs" />
+    <Compile Include="Euler9.fs" />
+    <Compile Include="Euler10.fs" />
+    <Compile Include="Euler11.fs" />
+    <Compile Include="Euler12.fs" />
+    <Compile Include="Euler13.fs" />
+    <Compile Include="Euler14.fs" />
+    <Compile Include="Euler15.fs" />
+    <Compile Include="Euler16.fs" />
+    <Compile Include="Euler17.fs" />
+    <Compile Include="Euler18.fs" />
+    <Compile Include="Euler20.fs" />
+    <Compile Include="Euler21.fs" />
+    <Compile Include="Euler23.fs" />
+    <Compile Include="Euler25.fs" />
+    <Compile Include="Euler27.fs" />
+    <Compile Include="Euler28.fs" />
+    <Compile Include="Euler30.fs" />
+    <Compile Include="Euler31.fs" />
+    <Compile Include="Euler32.fs" />
+    <Compile Include="Euler35.fs" />
+    <Compile Include="Euler36.fs" />
+    <Compile Include="Euler37.fs" />
     <Compile Include="Euler40.fs" />
+    <Compile Include="Euler77.fs" />
+    <Compile Include="Euler247.fs" />
   </ItemGroup>
 
 </Project>

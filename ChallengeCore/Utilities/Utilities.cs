@@ -116,6 +116,38 @@ namespace ChallengeCore.Challenges
 			}
 		}
 
+
+        public static IEnumerable<T3> ZipRepeat<T1, T2, T3>(this IEnumerable<T1> enum1, IEnumerable<T2> enum2, Func<T1, T2, T3> fn)
+        {
+            var e1 = enum1.GetEnumerator();
+            var e2 = enum2.GetEnumerator();
+            var fEnd1 = false;
+            var fEnd2 = false;
+
+            while (true)
+            {
+                var fEnd1Now = !e1.MoveNext();
+                var fEnd2Now = !e2.MoveNext();
+                fEnd1 = fEnd1 || fEnd1Now;
+                fEnd2 = fEnd2 || fEnd2Now;
+                if (fEnd1 && fEnd2)
+                {
+                    break;
+                }
+                if (fEnd1Now)
+                {
+                    e1.Reset();
+                    e1.MoveNext();
+                }
+                else if (fEnd2Now)
+                {
+                    e2.Reset();
+                    e2.MoveNext();
+                }
+                yield return fn(e1.Current, e2.Current);
+            }
+        }
+
 		#region MD5
 		private static readonly MD5Managed md5 = new MD5Managed();
         private static char[] Lookup;
