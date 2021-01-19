@@ -69,6 +69,12 @@ namespace ChallengeCore.Challenges
 			return int.Parse(ReadLine());
 		}
 
+        public static int? GetValOrEOF()
+        {
+            var line = ReadLine();
+            return line == null ? null : (int?)int.Parse(line);
+        }
+
 	    public static int? GetValue()
 	    {
 	        var line = ReadLine();
