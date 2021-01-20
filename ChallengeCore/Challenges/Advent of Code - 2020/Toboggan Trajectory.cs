@@ -9,7 +9,7 @@ namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
-        [Challenge("Advent of Code 2020", "Toboggan Trajectory (3))", "https://adventofcode.com/2020/day/3")]
+        [Challenge("Advent of Code 2020", "Toboggan Trajectory (3)", "https://adventofcode.com/2020/day/3")]
         public class TobogganTrajectory : IChallenge
         {
             public void Solve()
