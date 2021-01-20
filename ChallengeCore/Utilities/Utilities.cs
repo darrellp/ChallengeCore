@@ -64,6 +64,18 @@ namespace ChallengeCore.Challenges
 	        return sb.ToString();
 	    }
 
+        private static List<string> GetLines()
+        {
+            var lines = new List<string>();
+            string nextLine;
+
+            while ((nextLine = ReadLine()) != null)
+            {
+                lines.Add(nextLine);
+            }
+            return lines;
+        }
+
 		public static int GetVal()
 		{
 			return int.Parse(ReadLine());
