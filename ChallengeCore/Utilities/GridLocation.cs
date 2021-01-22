@@ -8,16 +8,21 @@ namespace ChallengeCore.Challenges
 	{
 		public readonly int Row;
 		public readonly int Col;
-		private static readonly NeighborInfo DefaultNeighborInfo = new NeighborInfo();
 
 		public bool IsNoLoc()
 		{
 			return Row < 0;
 		}
 
+        static GridLocation()
+        {
+			// Put an undisposed default NeighborInfo on the stack
+			var ignore = new NeighborInfo();
+        }
+
 		public GridLocation(int row, int col)
 		{
-			if (row < 0 || col < 0)
+			if (!NeighborStack.Peek().AllowNegative && (row < 0 || col < 0))
 			{
 				throw new ArgumentException();
 			}
@@ -37,13 +42,9 @@ namespace ChallengeCore.Challenges
 		}
 
 		[Pure]
-		public IEnumerable<GridLocation> Neighbors(NeighborInfo info = null)
+		public IEnumerable<GridLocation> Neighbors()
 		{
-			if (info == null)
-			{
-				info = DefaultNeighborInfo;
-			}
-
+			var info = NeighborStack.Peek();
 			for (var idRow = -1; idRow <= 1; idRow++)
 			{
 				for (var idCol = -1; idCol <= 1; idCol++)
@@ -64,6 +65,7 @@ namespace ChallengeCore.Challenges
 					var curCol = Col + idCol;
 					if (info.FWrap)
 					{
+						// We ignore AllowNegatives in this case
 						if (curRow < 0)
 						{
 							curRow += info.CRows;
@@ -83,7 +85,7 @@ namespace ChallengeCore.Challenges
 					}
 					else
 					{
-						if (curRow < 0 || curCol < 0 || curRow >= info.CRows || curCol >= info.CCols)
+						if ((!info.AllowNegative && (curRow < 0 || curCol < 0)) || curRow >= info.CRows || curCol >= info.CCols)
 						{
 							continue;
 						}
@@ -98,27 +100,38 @@ namespace ChallengeCore.Challenges
 			return $"r:{Row} c:{Col}";
 		}
 
-		public class NeighborInfo
+        private static readonly Stack<NeighborInfo> NeighborStack = new Stack<NeighborInfo>();
+
+		public class NeighborInfo : IDisposable
 		{
 			internal bool F4Neighbors { get; }
 			internal bool FWrap { get; }
 			internal int CRows { get; }
 			internal int CCols { get; }
 			internal bool IncludeOriginalCell { get; }
+			internal bool AllowNegative { get; }
 
 			public NeighborInfo(
 				int cRows = int.MaxValue,
 				int cCols = int.MaxValue,
 				bool f4Neighbors = true,
 				bool fWrap = false,
-				bool includeOriginalCell = false)
+				bool includeOriginalCell = false,
+                bool allowNegative = false)
 			{
 				F4Neighbors = f4Neighbors;
 				FWrap = fWrap;
 				CRows = cRows;
 				CCols = cCols;
 				IncludeOriginalCell = includeOriginalCell;
-			}
-		}
+                AllowNegative = allowNegative;
+                NeighborStack.Push(this);
+            }
+
+            public void Dispose()
+            {
+                NeighborStack.Pop();
+            }
+        }
 	}
 }

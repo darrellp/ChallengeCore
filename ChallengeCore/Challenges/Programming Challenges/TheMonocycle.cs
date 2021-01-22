@@ -21,15 +21,19 @@ namespace ChallengeCore.Challenges
 				var fFirst = true;
 				while ((solver = LocalSolver.ReadCase()) != null)
 				{
-					if (!fFirst)
-					{
-						sbRet.Append(Environment.NewLine);
-					}
-					fFirst = false;
-					sbRet.Append(string.Format("Case #{0}", iCase++));
-					sbRet.Append(Environment.NewLine);
-					solver.Solve(sbRet);
-				}
+                    using (var info = new GridLocation.NeighborInfo(solver.CRows, solver.CCols))
+                    {
+                        if (!fFirst)
+                        {
+                            sbRet.Append(Environment.NewLine);
+                        }
+
+                        fFirst = false;
+                        sbRet.Append($"Case #{iCase++}");
+                        sbRet.Append(Environment.NewLine);
+                        solver.Solve(sbRet);
+                    }
+                }
 				Write(sbRet.ToString());
 			}
 
@@ -67,29 +71,29 @@ minimum time = 49 sec
 			private class LocalSolver
 			{
 				private bool[][] _isBlocked;
-				private int _cRows;
-				private int _cCols;
-				private GridLocation _start;
+                private GridLocation _start;
 				private GridLocation _end;
 				private const int Colors = 5;
+				public int CRows { get; private set; }
+                public int CCols { get; private set; }
 
-				public static LocalSolver ReadCase()
+                public static LocalSolver ReadCase()
 				{
 					var ret = new LocalSolver();
 
 					// ReSharper disable once PossibleNullReferenceException
 					var stgs = ReadLine().Split(' ').Where(s => s != string.Empty).ToArray();
-					ret._cRows = int.Parse(stgs[0]);
-					ret._cCols = int.Parse(stgs[1]);
-					if (ret._cRows == 0 && ret._cCols == 0)
+					ret.CRows = int.Parse(stgs[0]);
+					ret.CCols = int.Parse(stgs[1]);
+					if (ret.CRows == 0 && ret.CCols == 0)
 					{
 						return null;
 					}
 
-					ret._isBlocked = new bool[ret._cRows][];
+					ret._isBlocked = new bool[ret.CRows][];
 
 					// We go down here so that index 0 is the bottom row
-					for (var iRow = 0; iRow < ret._cRows; iRow++)
+					for (var iRow = 0; iRow < ret.CRows; iRow++)
 					{
 						var line = ReadLine();
 						// ReSharper disable once PossibleNullReferenceException
@@ -145,7 +149,7 @@ minimum time = 49 sec
 					private readonly int _color;
 					private readonly int _direction;
 					private readonly GridLocation _location;
-					private readonly GridLocation.NeighborInfo _nInfo;
+					//private readonly GridLocation.NeighborInfo _nInfo;
 					private readonly LocalSolver _solver;
 
 					public MonocycleState(int color, GridLocation location, int direction, LocalSolver solver)
@@ -154,7 +158,6 @@ minimum time = 49 sec
 						_location = location;
 						_solver = solver;
 						_direction = direction;
-						_nInfo = new GridLocation.NeighborInfo(solver._cRows, solver._cCols);
 					}
 
 					// 0 = north, 1 = east, 2 = south, 3 = west
@@ -171,7 +174,7 @@ minimum time = 49 sec
 					{
 						var newColor = (_color + 1) % Colors;
 						// ReSharper disable once ImpureMethodCallOnReadonlyValueField
-						return _location.Neighbors(_nInfo).
+						return _location.Neighbors().
 							Where(loc => !_solver._isBlocked[loc.Row][loc.Col]).
 							Select(loc => new MonocycleState(newColor, loc, NewDirection(_location, loc), _solver));
 					}
