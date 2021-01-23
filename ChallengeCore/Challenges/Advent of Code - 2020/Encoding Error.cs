@@ -16,7 +16,7 @@ namespace ChallengeCore.Challenges
                 // Part 1
                 var values = GetLines().Select(long.Parse).ToArray();
                 var acc = new Accumulator(values.Take(25));
-                var val = 0l;
+                var val = 0L;
 
                 for (int i = 25; i < values.Length; i++)
                 {
@@ -63,7 +63,6 @@ namespace ChallengeCore.Challenges
                         total -= values[iLow++];
                     }
                 }
-                return (-1, -1);
             }
 
             private class Accumulator

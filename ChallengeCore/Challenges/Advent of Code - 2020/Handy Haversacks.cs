@@ -40,7 +40,6 @@ namespace ChallengeCore.Challenges
             Dictionary<string, ContentsRule> rules = new Dictionary<string, ContentsRule>();
             public void Solve()
             {
-                var cBags1 = 0;
                 var ruleLines = GetLines();
                 var containers = new Dictionary<string, List<string>>();
 

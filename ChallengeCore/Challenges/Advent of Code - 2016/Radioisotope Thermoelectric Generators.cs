@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using RegexStringLibrary;
 using static System.Console;
@@ -32,68 +31,6 @@ namespace ChallengeCore.Challenges
                             ? $"generator: {match.Groups["generator"].Value}"
                             : $"chip: {match.Groups["chip"].Value}");
                     }
-                }
-            }
-
-            public class State
-            {
-                private bool FloorContainsChip(string name, int floor = -1)
-                {
-                    return _chipsOnFloor[floor > 0 ? floor : _elevatorFloor].Contains(name);
-                }
-
-                private bool FloorContainsRtg(string name, int floor = -1)
-                {
-                    return _rgtsOnFloor[floor > 0 ? floor : _elevatorFloor].Contains(name);
-                }
-
-                private HashSet<string>[] _chipsOnFloor;
-                private HashSet<string>[] _rgtsOnFloor;
-                private int _elevatorFloor;
-
-                bool CheckMove(bool fUp, bool fChip1, string item1, bool fChip2, string item2)
-                {
-                    var retValue = true;
-
-                    // Check to see if we've got both items on this floor
-                    if (fChip1)
-                    {
-                        retValue &= !FloorContainsChip(item1);
-                    }
-                    else
-                    {
-                        retValue &= !FloorContainsRtg(item1);
-                    }
-                    if (retValue && item2 != null)
-                    {
-                        if (fChip2)
-                        {
-                            retValue &= !FloorContainsChip(item2);
-                        }
-                        else
-                        {
-                            retValue &= !FloorContainsRtg(item2);
-                        }
-                    }
-
-                    // Check to see if we're stranding a microchip with an incompatible RTG
-                    // Can't happen if our RTG was the only one on the floor...
-                    if (retValue && _rgtsOnFloor[_elevatorFloor].Count > 1)
-                    {
-                        if (!fChip1 &&                      // First item is a generator
-                            FloorContainsChip(item1))       // It's chip is being left behind
-                        {
-                            return false;
-                        }
-
-                        if (item2 != null && !fChip2 &&
-                            FloorContainsChip(item2))
-                        {
-                            return false;
-                        }
-                    }
-
-                    return retValue;
                 }
             }
 

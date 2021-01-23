@@ -11,37 +11,60 @@ namespace ChallengeCore.Challenges
         [Challenge("Advent of Code 2020", "Rain Risk (12)", "https://adventofcode.com/2020/day/12")]
         public class RainRisk : IChallenge
         {
+            GridLocation loc = new GridLocation();
+            char shipDirection = 'E';
+            GridLocation wpRelativeLocation;
+
             public void Solve()
             {
                 var directions = GetLines().Select(s => new {cmd = s[0], val = int.Parse(s[1..])}).ToArray();
-                var loc = new GridLocation();
-                var direction = 'E';
                 using var info = new GridLocation.NeighborInfo(allowNegative: true);
 
+                //Part 1
                 foreach (var dir in directions)
                 {
                     switch (dir.cmd)
                     {
                         case 'F':
-                            loc = Move(loc, direction, dir.val);
+                            Move(shipDirection, dir.val);
                             break;
 
                         case 'R':
                         case 'L':
-                            direction = Rotate(direction, dir.cmd, dir.val);
+                            Rotate(dir.cmd, dir.val);
                             break;
 
                         default:
-                            loc = Move(loc, dir.cmd, dir.val);
+                            Move(dir.cmd, dir.val);
                             break;
                     }
                 }
 
-                //Part 1
-                WriteLine(Abs(loc.Row) + Abs(loc.Col));
+                WriteLine(Abs(loc.Y) + Abs(loc.X));
 
                 // Part 2
-                WriteLine(0);
+                loc = new GridLocation();
+                wpRelativeLocation = new GridLocation(1, 10);
+                foreach (var dir in directions)
+                {
+                    switch (dir.cmd)
+                    {
+                        case 'F':
+                            WpForward(dir.val);
+                            break;
+
+                        case 'R':
+                        case 'L':
+                            WpRotate(dir.cmd, dir.val);
+                            break;
+
+                        default:
+                            WpMove(dir.cmd, dir.val);
+                            break;
+                    }
+                }
+
+                WriteLine(Abs(loc.Y) + Abs(loc.X));
             }
 
             static Dictionary<char, int> mpDirVal = new Dictionary<char, int>()
@@ -52,9 +75,9 @@ namespace ChallengeCore.Challenges
                 {'S', 3}
             };
 
-            public static char Rotate(char direction, char cmd, int val)
+            public void Rotate(char cmd, int val)
             {
-                var dirValue = mpDirVal[direction];
+                var dirValue = mpDirVal[shipDirection];
                 var rightAngles = val / 90;
 
                 if (cmd == 'R')
@@ -66,37 +89,67 @@ namespace ChallengeCore.Challenges
                     dirValue = (dirValue + rightAngles) % 4;
                 }
 
-                return "ENWS"[dirValue];
+                shipDirection = "ENWS"[dirValue];
             }
 
-            public static GridLocation Move(GridLocation loc, char direction, int val)
+            public void Move(char moveDirection, int val)
             {
-                GridLocation ret;
-
-                switch (direction)
+                loc = moveDirection switch
                 {
-                    case 'N':
-                        ret = new GridLocation(loc.Row + val, loc.Col);
-                        break;
+                    'N' => new GridLocation(loc.Y + val, loc.X),
+                    'S' => new GridLocation(loc.Y - val, loc.X),
+                    'E' => new GridLocation(loc.Y, loc.X + val),
+                    'W' => new GridLocation(loc.Y, loc.X - val),
+                    _ => throw new InvalidOperationException()
+                };
+            }
 
-                    case 'S':
-                        ret = new GridLocation(loc.Row - val, loc.Col);
-                        break;
+            public void WpMove(char moveDirection, int val)
+            {
+                wpRelativeLocation = moveDirection switch
+                {
+                    'N' => new GridLocation(wpRelativeLocation.Y + val, wpRelativeLocation.X),
+                    'S' => new GridLocation(wpRelativeLocation.Y - val, wpRelativeLocation.X),
+                    'E' => new GridLocation(wpRelativeLocation.Y, wpRelativeLocation.X + val),
+                    'W' => new GridLocation(wpRelativeLocation.Y, wpRelativeLocation.X - val),
+                    _ => throw new InvalidOperationException()
+                };
+            }
 
-                    case 'E':
-                        ret = new GridLocation(loc.Row, loc.Col + val);
-                        break;
+            private void WpForward(int val)
+            {
+                loc += val * wpRelativeLocation;
+            }
 
-                    case 'W':
-                        ret = new GridLocation(loc.Row, loc.Col - val);
-                        break;
+            private void WpRotate(char cmd, int val)
+            {
+                var rightAngles = val / 90;
 
-                    default:
-                        ret = new GridLocation();
-                        break;
+                // Why can't I use 
+                //      Func<GridLocation, GridLocation> fnRot = cmd == 'R' ? RotRight : RotLeft
+                // here or even
+                //      var fnRot = RotLeft;
+                // ???
+                Func<GridLocation, GridLocation> fnRot = RotLeft;
+                if (cmd == 'R')
+                {
+                    fnRot = RotRight;
                 }
 
-                return ret;
+                for (var i = 0; i < rightAngles; i++)
+                {
+                    wpRelativeLocation = fnRot(wpRelativeLocation);
+                }
+            }
+
+            private GridLocation RotRight(GridLocation loc)
+            {
+                return new GridLocation(-loc.X, loc.Y);
+            }
+
+            private GridLocation RotLeft(GridLocation loc)
+            {
+                return new GridLocation(loc.X, -loc.Y);
             }
 
             public string RetrieveSampleInput()
@@ -896,6 +949,7 @@ F26";
             {
                 return @"
 1631
+58606
 ";
             }
         }

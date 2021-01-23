@@ -8,6 +8,8 @@ namespace ChallengeCore.Challenges
 	{
 		public readonly int Row;
 		public readonly int Col;
+        public int X => Col;
+        public int Y => Row;
 
 		public bool IsNoLoc()
 		{
@@ -30,15 +32,23 @@ namespace ChallengeCore.Challenges
 			Col = col;
 		}
 
-// ReSharper disable once UnusedParameter.Local
+        // ReSharper disable once UnusedParameter.Local
 		private GridLocation(bool dontCare)
 		{
 			Row = Col = -1;
 		}
 
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	No location. </summary>
+		///
+		/// <remarks>	Only makes sense if !NeighborInfo.allowNegatives.  Darrell Plank, 1/22/2021. </remarks>
+		///
+		/// <returns>	A GridLocation. </returns>
+		////////////////////////////////////////////////////////////////////////////////////////////////////
 		public static GridLocation NoLoc()
 		{
-			return new GridLocation(true);
+			using var info = new NeighborInfo(allowNegative:true);
+			return new GridLocation(-1, -1);
 		}
 
 		[Pure]
@@ -100,7 +110,22 @@ namespace ChallengeCore.Challenges
 			return $"r:{Row} c:{Col}";
 		}
 
-        private static readonly Stack<NeighborInfo> NeighborStack = new Stack<NeighborInfo>();
+        public static GridLocation operator *(int m, GridLocation loc)
+        {
+			return new GridLocation(loc.Row * m, loc.Col * m);
+        }
+
+        public static GridLocation operator +(GridLocation loc1, GridLocation loc2)
+        {
+            return new GridLocation(loc1.Row + loc2.Row, loc1.Col + loc2.Col);
+        }
+
+        public static GridLocation operator -(GridLocation loc1, GridLocation loc2)
+        {
+            return new GridLocation(loc1.Row - loc2.Row, loc1.Col - loc2.Col);
+        }
+
+		private static readonly Stack<NeighborInfo> NeighborStack = new Stack<NeighborInfo>();
 
 		public class NeighborInfo : IDisposable
 		{

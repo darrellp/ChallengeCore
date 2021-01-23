@@ -80,7 +80,7 @@ namespace ChallengeCore.Challenges
                 }
                 var pow = MatrixMultiply(orig, orig);
 
-                var cPaths = 0l;
+                var cPaths = 0L;
                 for (int iPow = 0; iPow < values.Length; iPow++)
                 {
                     pow = MatrixMultiply(pow, orig);
@@ -99,7 +99,7 @@ namespace ChallengeCore.Challenges
                 {
                     for (var iColResult = 0; iColResult < dim; iColResult++)
                     {
-                        var sum = 0l;
+                        var sum = 0L;
 
                         for (var k = 0; k < dim; k++)
                         {
