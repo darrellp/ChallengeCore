@@ -17,14 +17,18 @@ namespace ChallengeCore.Challenges
             private const int wSize = 36;
             public void Solve()
             {
-                var pgm = new Program();
-                pgm.Execute();
-
                 // Part 1
+                var pgm = new Program();
+                pgm.Execute(1);
+
                 WriteLine(pgm.MemorySum());
 
                 // Part 2
-                WriteLine(0);
+                pgm.Clear();
+                pgm.Execute(2);
+
+                var sum = pgm.MemorySum();
+                WriteLine(pgm.MemorySum());
             }
 
             private static readonly string MaskInput = "mask = " + ".+".Named("mask");
@@ -36,27 +40,40 @@ namespace ChallengeCore.Challenges
             {
                 private long AndMask;
                 private long OrMask;
-                private readonly Dictionary<int, long> Memory = new Dictionary<int, long>();
-                private readonly List<InputLine> _program = new List<InputLine>();
+                private int XCount;
+                private Dictionary<long, long> Memory = new Dictionary<long, long>();
+                // Instructions for chip version 1
+                private readonly List<InputLine> _program1 = new List<InputLine>();
+                // Instructions for chip version 2
+                private readonly List<InputLine> _program2 = new List<InputLine>();
 
                 public Program()
                 {
-                    InputLine inputLine;
-
-                    while ((inputLine = InputLine.NextLine()) != null)
+                    while (true)
                     {
-                        _program.Add(inputLine);
+                        var (inputLine1, inputLine2) = InputLine.NextLine();
+
+                        if (inputLine1 == null)
+                        {
+                            break;
+                        }
+                        _program1.Add(inputLine1);
+                        _program2.Add(inputLine2);
                     }
                 }
 
-                public void Execute()
+                public void Execute(int chipVersion)
                 {
-                    foreach (var inputLine in _program)
+                    foreach (var inputLine in chipVersion == 1 ? _program1 : _program2)
                     {
                         inputLine.Execute(this);
                     }
                 }
 
+                public void Clear()
+                {
+                    Memory = new Dictionary<long, long>();
+                }
                 public long MemorySum()
                 {
                     return Memory.Values.Sum();
@@ -66,12 +83,12 @@ namespace ChallengeCore.Challenges
                 {
                     public abstract void Execute(Program pgm);
 
-                    public static InputLine NextLine()
+                    public static (InputLine, InputLine) NextLine()
                     {
                         var line = ReadLine();
                         if (line == null)
                         {
-                            return null;
+                            return (null, null);
                         }
 
                         var match = RgxMem.Match(line);
@@ -79,23 +96,27 @@ namespace ChallengeCore.Challenges
                         {
                             var loc = match.Groups["location"].Value;
                             var val = match.Groups["value"].Value;
-                            return new MemStatement(val, loc);
+                            var line1 = new MemStatement1(val, loc);
+                            var line2 = new MemStatement2(val, loc);
+                            return (line1, line2);
                         }
                         else
                         {
                             match = RgxMask.Match(line);
                             var mask = match.Groups["mask"].Value;
-                            return new MaskStatement(mask);
+                            var line1 = new MaskStatement1(mask);
+                            var line2 = new MaskStatement2(mask);
+                            return (line1, line2);
                         }
                     }
                 }
 
-                private class MaskStatement : InputLine
+                private class MaskStatement1 : InputLine
                 {
                     private readonly long _orMask;
                     private readonly long _andMask;
 
-                    public MaskStatement(string mask)
+                    public MaskStatement1(string mask)
                     {
                         _andMask = -1;
                         var pos = 1L << (wSize - 1);
@@ -126,12 +147,53 @@ namespace ChallengeCore.Challenges
                     }
                 }
 
-                class MemStatement : InputLine
+                private class MaskStatement2 : InputLine
+                {
+                    private readonly long _orMask;
+                    private readonly long _andMask;
+                    private readonly long _xMask;
+                    private readonly int _xCount = 0;
+
+                    public MaskStatement2(string mask)
+                    {
+                        _andMask = -1;
+
+                        var pos = 1L << (wSize - 1);
+                        foreach (var c in mask)
+                        {
+                            switch (c)
+                            {
+                                case 'X':
+                                    _andMask &= ~pos;
+                                    _xCount++;
+                                    break;
+
+                                case '1':
+                                    _orMask |= pos;
+                                    break;
+
+                                case '0':
+                                    break;
+                            }
+
+                            pos >>= 1;
+                        }
+                    }
+
+                    public override void Execute(Program pgm)
+                    {
+                        pgm.AndMask = _andMask & 0xFFFFFFFFF;
+                        pgm.OrMask = _orMask;
+                        pgm.XCount = _xCount;
+                    }
+                }
+
+                class MemStatement1 : InputLine
                 {
                     private long _val;
                     private int _loc;
 
-                    public MemStatement(string val, string loc)
+                    public MemStatement1(string val, string loc)
                     {
                         _val = long.Parse(val);
                         _loc = int.Parse(loc);
@@ -142,6 +204,59 @@ namespace ChallengeCore.Challenges
                         var maskValue = _val & pgm.AndMask;
                         maskValue |= pgm.OrMask;
                         pgm.Memory[_loc] = maskValue;
+                    }
+                }
+
+                class MemStatement2 : InputLine
+                {
+                    private long _val;
+                    private int _loc;
+
+                    public MemStatement2(string val, string loc)
+                    {
+                        _val = long.Parse(val);
+                        _loc = int.Parse(loc);
+                    }
+
+                    public override void Execute(Program pgm)
+                    {
+                        // Tricky business here.  The ones that are to be set in the address
+                        // are in pgm.orMask and are just or'ed in with the location.
+                        var maskedLoc = _loc | pgm.OrMask;
+
+                        // The and mask is just 0 where X'es are and 1's elsewhere.  We use this
+                        // both as an and mask to zero out the X bits and as the starting point
+                        // for what to or in to achieve the final address.  Incrementing this value
+                        // will have the 1's between x's carry the carry bit through to the next
+                        // X bit.  This will also set some of the 1's between x's to zero so
+                        // afterward we have to or the and mask back in to set them to ones.  This
+                        // value can now be or'ed with the masked location (which had the X bits
+                        // set to zero in the previous and with the and mask) to get our next
+                        // address.
+                        var maskCur = pgm.AndMask;
+
+                        for (var iBit = 0; iBit < (1 << pgm.XCount); iBit++)
+                        {
+                            // Zero out the X bits
+                            maskedLoc &= pgm.AndMask;
+
+                            // Fill in the proper values for the X bits
+                            // maskCur has the proper values for all X bits and 1s everywhere else.
+                            // We want to have zeroes everywhere else.  We achieve this through
+                            // anding with the not of the and mask.
+                            maskedLoc |= (maskCur & ~pgm.AndMask);
+
+                            // Write to the proper memory address
+                            pgm.Memory[maskedLoc] = _val;
+
+                            // Do the magic which will increment the X bits correctly but
+                            // munge up the non-x bits
+                            maskCur++;
+
+                            // Correct all the non-X bits which got munged in the previous
+                            // operation.
+                            maskCur |= pgm.AndMask;
+                        }
                     }
                 }
             }
