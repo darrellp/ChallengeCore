@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text.RegularExpressions;
 using RegexStringLibrary;
 using static System.Console;
@@ -14,7 +12,7 @@ namespace ChallengeCore.Challenges
         [Challenge("Advent of Code 2020", "Docking Data (14)", "https://adventofcode.com/2020/day/14")]
         public class DockingData : IChallenge
         {
-            private const int wSize = 36;
+            private const int WSize = 36;
             public void Solve()
             {
                 // Part 1
@@ -118,7 +116,7 @@ namespace ChallengeCore.Challenges
                     public MaskStatement1(string mask)
                     {
                         _andMask = -1;
-                        var pos = 1L << (wSize - 1);
+                        var pos = 1L << (WSize - 1);
                         foreach (var c in mask)
                         {
                             switch (c)
@@ -150,14 +148,13 @@ namespace ChallengeCore.Challenges
                 {
                     private readonly long _orMask;
                     private readonly long _andMask;
-                    private readonly long _xMask;
-                    private readonly int _xCount = 0;
+                    private readonly int _xCount;
 
                     public MaskStatement2(string mask)
                     {
                         _andMask = -1;
 
-                        var pos = 1L << (wSize - 1);
+                        var pos = 1L << (WSize - 1);
                         foreach (var c in mask)
                         {
                             switch (c)
