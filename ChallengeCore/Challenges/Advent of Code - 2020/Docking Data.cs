@@ -27,7 +27,6 @@ namespace ChallengeCore.Challenges
                 pgm.Clear();
                 pgm.Execute(2);
 
-                var sum = pgm.MemorySum();
                 WriteLine(pgm.MemorySum());
             }
 
@@ -829,7 +828,7 @@ mem[53814] = 515346";
             {
                 return @"
 7440382076205
-1001569619313439
+4200656704538
 ";
             }
         }
