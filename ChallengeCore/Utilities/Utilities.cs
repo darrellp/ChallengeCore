@@ -93,10 +93,10 @@ namespace ChallengeCore.Challenges
 	        return line == null ? null : (int?)int.Parse(line);
 	    }
 
-		public static List<int> GetVals()
+		public static List<int> GetVals(char sep = ' ')
 		{
 			var line = ReadLine();
-		    return line?.Split(' ').
+		    return line?.Split(sep).
 			    Select(int.Parse).
 			    ToList();
 		}
