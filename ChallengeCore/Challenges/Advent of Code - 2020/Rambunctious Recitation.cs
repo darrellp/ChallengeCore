@@ -11,13 +11,14 @@ namespace ChallengeCore.Challenges
         {
             // Finally gave up trying to do this in some way other than brute force.  It appears that there aren't a lot of options.
             // Found in in OEIS as sequence A181391, Van Eck's sequence:
-            // https://oeis.org/search?q=0%2C0%2C1%2C0%2C2%2C0%2C2%2C2%2C1%2C6%2C0%2C5%2C0%2C2%2C6&language=english&go=Search
+            // https://oeis.org/A181391
             // It doesn't appear that anybody has found a closed form way to determine the n'th element of the sequence so I
             // guess I don't have to feel bad.  I spent a long time thinking about it before finally giving in.  It seems to
             // me that he shouldn't ask for the 30 millionth term if it's just a repeat of the brute force method.
             // 
             public void Solve()
             {
+                // ReSharper disable once PossibleNullReferenceException
                 var init = ReadLine().Split(',').Select(int.Parse).ToList();
 
                 // Part 1
