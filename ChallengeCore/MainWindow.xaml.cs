@@ -20,7 +20,10 @@ namespace ChallengeCore
 	public partial class MainWindow : Window
 	{
 		#region DllImports
-		[DllImport("CPP Challenges.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Auto)]
+		// If the Target of the build changes then the output directory will change.  We reference this directory in the postbuild
+		// action of CPP Challenges to copy it's dll into the solution directory which means that postbuild commmand must be edited
+		// to reflect the new target directory.
+        [DllImport(@"CPP Challenges.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Auto)]
 		[return: MarshalAs(UnmanagedType.LPStr)]
         private static extern string GatherChallengeInfo();
 		#endregion
