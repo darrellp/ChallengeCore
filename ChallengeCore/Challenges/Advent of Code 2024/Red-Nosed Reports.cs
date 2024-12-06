@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Navigation;
-using MoreLinq.Extensions;
 using static System.Console;
 
+// ReSharper disable once CheckNamespace
 namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
         [Challenge("Advent of Code 2024", "Red-Nosed Reports (2)", "https://adventofcode.com/2024/day/2")]
+        // ReSharper disable once UnusedMember.Global
         public class RedNosedReports : IChallenge
         {
             public void Solve()
             {
                 // Get data
                 var reports = new List<List<int>>();
-                List<int> reportCur;
 
-                while ((reportCur = GetVals()) != null)
+                while (GetVals() is { } reportCur)
                 {
                     reports.Add(reportCur);
                 }
