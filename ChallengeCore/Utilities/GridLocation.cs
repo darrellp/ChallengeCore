@@ -120,6 +120,11 @@ namespace ChallengeCore.Challenges
             return new GridLocation(loc1.Row + loc2.Row, loc1.Col + loc2.Col);
         }
 
+        public static GridLocation operator +(GridLocation loc1, (int, int) loc2)
+        {
+            return new GridLocation(loc1.Row + loc2.Item1, loc1.Col + loc2.Item2);
+        }
+
         public static GridLocation operator -(GridLocation loc1, GridLocation loc2)
         {
             return new GridLocation(loc1.Row - loc2.Row, loc1.Col - loc2.Col);
