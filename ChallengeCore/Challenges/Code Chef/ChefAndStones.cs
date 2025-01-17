@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ChallengeCore.Challenges
 {
@@ -6,29 +7,20 @@ namespace ChallengeCore.Challenges
 	{
 		[Challenge("Code Chef", "Chef and Stones", "http://www.codechef.com/JAN15/problems/CHEFSTON")]
 		// ReSharper disable once InconsistentNaming
-		public class ChefSton : IChallenge
+		public class ChefStone : IChallenge
 		{
 			public void Solve()
 			{
 				var cTests = GetVal();
 				for (var iTest = 0; iTest < cTests; iTest++)
 				{
-					var vals = GetVals();
-					var cTypes = vals[0];
-					var time = vals[1];
+                    // ReSharper disable once IdentifierTypo
+                    var vals = GetVals();
+                    var time = vals[1];
 					var typeTimes = GetVals();
 					var typeProfits = GetVals();
-					var maxProfit = int.MinValue;
 
-					for (int iType = 0; iType < cTypes; iType++)
-					{
-						var count = time/typeTimes[iType];
-						var profit = count*typeProfits[iType];
-						if (profit > maxProfit)
-						{
-							maxProfit = profit;
-						}
-					}
+                    var maxProfit = typeTimes.Zip(typeProfits, (t,p) => (time / t) * p).Max();
 					Console.WriteLine(maxProfit.ToString());
 				}
 			}

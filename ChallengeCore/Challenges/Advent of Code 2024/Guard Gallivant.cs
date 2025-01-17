@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using static System.Console;
-
+// ReSharper disable CommentTypo
 // ReSharper disable IdentifierTypo
 // ReSharper disable StringLiteralTypo
-
 // ReSharper disable once CheckNamespace
+
 namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
@@ -17,16 +17,18 @@ namespace ChallengeCore.Challenges
         // ReSharper disable once UnusedMember.Global
         public class GuardGalivant : IChallenge
         {
-            private static readonly (int, int)[] _dirs = new[]
-            {
+            private static readonly (int row, int col)[] Dirs =
+            [
                 (-1, 0),    // North
                 (0, 1),     // East
                 (1, 0),     // South
                 (0, -1)     // West
-            };
+            ];
             private List<string> _lines;
-            private (int, int) _glCur;
+            private (int row, int col) _glCur;
+            private (int row, int col) _glOrig;
             private int _dirCur = -1;
+            private int _dirOrig = -1;
             private int _height;
             private int _width;
 
@@ -41,16 +43,17 @@ namespace ChallengeCore.Challenges
                     for (var iCol = 0; iCol < _lines[0].Length; iCol++)
                     {
                         var ch = _lines[iRow][iCol];
+                        // ReSharper disable once InvertIf
                         if (ch != '.' && ch != '#')
                         {
-                            _glCur = (iRow, iCol);
-                            _dirCur = ch switch
+                            _glOrig = _glCur = (iRow, iCol);
+                            _dirOrig = _dirCur = ch switch
                             {
                                 '^' => 0,
                                 '>' => 1,
                                 'v' => 2,
                                 '<' => 3,
-                                _ => throw new InvalidOperationException("Bad character in map")
+                                _ => throw new InvalidOperationException("Bad character in map") 
                             };
                             break;
                         }
@@ -64,41 +67,128 @@ namespace ChallengeCore.Challenges
 
                 // Part 1
                 var marks = new int[_height][];
-                for (int iRow = 0; iRow < _height; iRow++)
+                for (var iRow = 0; iRow < _height; iRow++)
                 {
                     marks[iRow] = new int[_width];
                 }
 
-                marks[_glCur.Item1][_glCur.Item2] = 1;
+                marks[_glCur.row][_glCur.col] = 1;
                 while (Advance())
                 {
-                    marks[_glCur.Item1][_glCur.Item2] = 1;
+                    marks[_glCur.row][_glCur.col] = 1;
                 }
 
                 WriteLine(marks.Select(r => r.Sum()).Sum());
 
                 // Part 2
+                _glCur = _glOrig;
+                _dirCur = _dirOrig;
+
+                var adjacencies = GetAdjacencies(_lines);
+
                 WriteLine(0);
             }
 
             private bool Advance()
             {
-                var dir = _dirs[_dirCur];
-                var next = (_glCur.Item1 + dir.Item1, _glCur.Item2 + dir.Item2);
-                if (next.Item1 < 0 || next.Item1 >= _width || next.Item2 < 0 || next.Item2 >= _height)
+                var dir = Dirs[_dirCur];
+                (int row, int col) next = (_glCur.row + dir.row, _glCur.col + dir.col);
+                if (next.row < 0 || next.row >= _height || next.col < 0 || next.col >= _width)
                 {
                     return false;
                 }
 
-                while (_lines[next.Item1][next.Item2] == '#')
+                while (_lines[next.row][next.col] == '#')
                 {
                     _dirCur = (_dirCur + 1) % 4;
-                    dir = _dirs[_dirCur];
-                    next = (_glCur.Item1 + dir.Item1, _glCur.Item2 + dir.Item2);
+                    dir = Dirs[_dirCur];
+                    next = (_glCur.row + dir.row, _glCur.col + dir.col);
                 }
 
                 _glCur = next;
                 return true;
+            }
+
+            private (int row, int col, bool fInfLoop, bool fFinished) Advance2(Adjacency[][] adjacencies)
+            {
+                var (dirRow, dirCol) = Dirs[_dirCur];
+                var (nextPosRow, nextPosCol) = (_glCur.row + dirRow, _glCur.col + dirCol);
+                if (nextPosRow < 0 || nextPosRow >= _height || nextPosCol < 0 || nextPosCol >= _width)
+                {
+                    return (0, 0, false, true);
+                }
+
+                return (0, 0, false, false);
+            }
+
+            private (int row, int col, bool fNoBlock) NextBlock((int row, int col) pos, int dir, Adjacency[][] adjacencies)
+            {
+                var adj = adjacencies[pos.row][pos.col];
+                return dir switch
+                {
+                    0 => (adj.Above - 1, pos.col, adj.Above >= 0),
+                    1 => (pos.row, adj.Right - 1, adj.Right >= 0),
+                    2 => (adj.Below + 1, pos.col, adj.Below >= 0),
+                    3 => (pos.row, adj.Left + 1, adj.Left >= 0),
+                    _ => throw new NotSupportedException()
+                };
+            }
+
+            private Adjacency[][] GetAdjacencies(IList<string> matrix)
+            {
+                var adjacencies = new Adjacency[_height][];
+
+                // Determine lefts and rights by going across rows
+                for (var iRow = 0; iRow < _height; iRow++)
+                {
+                    var adjacentsRow = adjacencies[iRow] = new Adjacency[_width];
+                    var left = -1;
+                    for (var iCol = 0; iCol < _width; iCol++)
+                    {
+                        adjacentsRow[iCol] = new Adjacency();
+                        if (matrix[iRow][iCol] == '#')
+                        {
+                            for (var iColInner = left + 1; iColInner < iCol; iColInner++)
+                            {
+                                adjacentsRow[iColInner].Right = iCol;
+                            }
+                            left = iCol;
+                            continue;
+                        }
+
+                        adjacentsRow[iCol].Left = left;
+                    }
+                }
+
+                // Determine aboves and belows by going down columns
+                for (var iCol = 0; iCol < _width; iCol++)
+                {
+                    var above = -1;
+                    for (var iRow = 0; iRow < _height; iRow++)
+                    {
+                        if (matrix[iRow][iCol] == '#')
+                        {
+                            for (var iRowInner = above + 1; iRowInner < iRow; iRowInner++)
+                            {
+                                adjacencies[iRowInner][iCol].Below = iRow;
+                            }
+                            above = iRow;
+                            continue;
+                        }
+
+                        adjacencies[iRow][iCol].Above = above;
+                    }
+                }
+
+                return adjacencies;
+            }
+
+            struct Adjacency()
+            {
+                public int Above { get; set; } = -1;
+                public int Below { get; set; } = -1;
+                public int Right { get; set; } = -1;
+                public int Left { get; set; } = -1;
             }
 
 #if SAMPLE
