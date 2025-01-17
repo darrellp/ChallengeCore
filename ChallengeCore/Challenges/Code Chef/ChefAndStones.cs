@@ -10,7 +10,7 @@ namespace ChallengeCore.Challenges
 		public class ChefStone : IChallenge
 		{
 			public void Solve()
-			{
+            {
 				var cTests = GetVal();
 				for (var iTest = 0; iTest < cTests; iTest++)
 				{
@@ -27,19 +27,23 @@ namespace ChallengeCore.Challenges
 
 			public string RetrieveSampleInput()
 			{
-				return @"
-1
-3 10
-3 4 5
-4 4 5
-";
+				return """
+
+                       1
+                       3 10
+                       3 4 5
+                       4 4 5
+
+                       """;
 			}
 
 			public string RetrieveSampleOutput()
 			{
-				return @"
-12
-";
+				return """
+
+                       12
+
+                       """;
 			}
 		}
 	}
