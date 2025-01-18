@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+// ReSharper disable once CheckNamespace
 namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
