@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -16,6 +16,7 @@
     <None Remove="Data Files\matrix.txt" />
     <None Remove="Data Files\poker.txt" />
     <None Remove="Data Files\sets.txt" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,10 +54,6 @@
     <Folder Include="Challenges\Programming Challenges\" />
     <Folder Include="Challenges\Sphere\" />
     <Folder Include="Challenges\Talent Buddy\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="morelinq" Version="3.3.2" />
   </ItemGroup>
 
   <ItemGroup>
