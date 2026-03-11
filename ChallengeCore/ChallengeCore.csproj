@@ -35,18 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="NumberTheoryBig">
-      <HintPath>Referenced Assemblies\NumberTheoryBig.dll</HintPath>
-    </Reference>
-    <Reference Include="NumberTheoryLong">
-      <HintPath>Referenced Assemblies\NumberTheoryLong.dll</HintPath>
-    </Reference>
-    <Reference Include="Priority Queue">
-      <HintPath>Referenced Assemblies\Priority Queue.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Challenges\Advent of Code - 2016\" />
     <Folder Include="Challenges\Code Chef\" />
     <Folder Include="Challenges\Hacker Earth\" />
