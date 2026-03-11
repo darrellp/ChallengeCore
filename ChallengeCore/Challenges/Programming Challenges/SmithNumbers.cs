@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using NumberTheoryLong;
 using static System.Console;
 
 namespace ChallengeCore.Challenges
