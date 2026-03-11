@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NumberTheory;
 using static System.Console;
 
 

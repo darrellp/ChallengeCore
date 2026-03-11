@@ -1,4 +1,5 @@
-﻿using static System.Console;
+﻿using NumberTheory;
+using static System.Console;
 
 namespace ChallengeCore.Challenges
 {

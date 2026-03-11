@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using Microsoft.FSharp.Linq.RuntimeHelpers;
-using NumberTheoryBig;
+using NumberTheory;
 using static System.Console;
 
 

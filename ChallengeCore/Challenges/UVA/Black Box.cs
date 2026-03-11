@@ -73,8 +73,8 @@ namespace ChallengeCore.Challenges
 			/// </summary>
 			public class NthPriorityQueue<T> where T : IComparable
 			{
-				readonly SimplePriorityQueue<T> _smallest = new SimplePriorityQueue<T>(Comparer<T>.Create((n1, n2) => n2.CompareTo(n1)));
-				readonly SimplePriorityQueue<T> _largest = new SimplePriorityQueue<T>();
+				readonly BinaryPriorityQueue<T> _smallest = new BinaryPriorityQueue<T>((n1, n2) => n2.CompareTo(n1));
+				readonly BinaryPriorityQueue<T> _largest = new BinaryPriorityQueue<T>((n1, n2) => n1.CompareTo(n2));
 				private int _n;
 
 				public NthPriorityQueue()

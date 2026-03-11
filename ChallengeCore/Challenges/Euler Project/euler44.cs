@@ -1,4 +1,5 @@
-﻿using static System.Console;
+﻿using NumberTheory;
+using static System.Console;
 
 namespace ChallengeCore.Challenges
 {
@@ -68,7 +69,7 @@ namespace ChallengeCore.Challenges
             public static bool IsPentagonal(long n)
             {
                 var disc = 24 * n + 1;
-                var sqrt = disc.IntegerSqrt();
+                var sqrt = NumberTheory.Utilities.IntegerSqrt(disc);
                 return sqrt * sqrt == disc && sqrt % 6 == 5;
             }
 

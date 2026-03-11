@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using NumberTheory;
 using RegexStringLibrary;
 using static System.Console;
 

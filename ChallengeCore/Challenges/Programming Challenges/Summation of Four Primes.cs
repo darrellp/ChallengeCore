@@ -1,4 +1,5 @@
 ﻿using System;
+using NumberTheory;
 using static System.Console;
 
 namespace ChallengeCore.Challenges
@@ -24,7 +25,7 @@ namespace ChallengeCore.Challenges
 
             static long NextSmallestPrime(long n)
             {
-                for (; !n.IsPrime(); n--)
+                for (; !Primes.IsPrime(n); n--)
                 {
                 }
 
@@ -42,7 +43,7 @@ namespace ChallengeCore.Challenges
                     throw new ArgumentException("Oops - Goldbach only works with even values >= 4");
                 }
                 var i = even - 3;
-                for (; !i.IsPrime() || !(even - i).IsPrime(); i -= 2)
+                for (; !Primes.IsPrime(i) || !Primes.IsPrime(even - i); i -= 2)
                 {
                 }
                 return i;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using NumberTheory;
 using static System.Console;
 
 namespace ChallengeCore.Challenges
@@ -67,7 +68,7 @@ namespace ChallengeCore.Challenges
 
 				private static bool IsSmith(long l)
 				{
-					if (l.IsPrime())
+					if (Primes.IsPrime(l))
 					{
 						return false;
 					}

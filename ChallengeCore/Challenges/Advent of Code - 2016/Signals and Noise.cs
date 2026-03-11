@@ -37,8 +37,7 @@ namespace ChallengeCore.Challenges
                     Enumerable
                         .Range(0, 8)
                         .Select(i =>
-                            letterDictionaries[i]
-                                .MaxBy(kvp => kvp.Value)
+                            MoreLinq.MoreEnumerable.MaxBy(letterDictionaries[i], kvp => kvp.Value)
                                 .First()
                                 .Key)
                         .ToArray());
@@ -48,8 +47,7 @@ namespace ChallengeCore.Challenges
                     Enumerable
                         .Range(0, 8)
                         .Select(i =>
-                            letterDictionaries[i]
-                                .MinBy(kvp => kvp.Value)
+                            MoreLinq.MoreEnumerable.MinBy(letterDictionaries[i], kvp => kvp.Value)
                                 .First()
                                 .Key)
                         .ToArray());
