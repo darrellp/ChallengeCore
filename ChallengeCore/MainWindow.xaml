@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChallengeCore"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Code Challenges" Height="700" Width="1050">
     <Grid x:Name="GrdTop">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="174"/>
