@@ -99,7 +99,7 @@
       <EnableUAC>false</EnableUAC>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(TargetPath)" "$(TargetDir)..\ChallengeCore\bin\$(Configuration)\net10.0-windows"</Command>
+      <Command>copy "$(TargetPath)" "$(TargetDir)..\ChallengeCore\bin\$(Configuration)\netcoreapp3.0"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,7 +137,7 @@
       <EnableUAC>false</EnableUAC>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(TargetPath)" "$(TargetDir)..\..\ChallengeCore\bin\$(Configuration)\net10.0-windows"</Command>
+      <Command>copy "$(TargetPath)" "$(TargetDir)..\..\ChallengeCore\bin\$(Configuration)\netcoreapp3.1"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

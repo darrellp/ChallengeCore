@@ -70,7 +70,7 @@ namespace ChallengeCore.Challenges
 		// TODO: Extend to optionally use a function to define an accepting state
 		// This would involve us having no direct targets and using a distance estimation that depended
 		// solely on the current node rather than on a specific target node.
-		readonly FibonacciPriorityQueue<Pqt<AStarNode<T>>> _openSet = new FibonacciPriorityQueue<Pqt<AStarNode<T>>>();
+		readonly FibonacciPriorityQueue<AStarNode<T>> _openSet = new FibonacciPriorityQueue<AStarNode<T>>();
 		private readonly HashSet<T> _targets;
 		private readonly HashSet<T> _closed = new HashSet<T>();
 
@@ -98,7 +98,7 @@ namespace ChallengeCore.Challenges
 			// AStarNode in the Fibonacci heap and since we are letting Pqt
 			// handle the messy details, we actually are looking for the
 			// Pqt<AStarNode<T>> which is in the heap...
-			var dictOpen = new Dictionary<T, Pqt<AStarNode<T>>>();
+			var dictOpen = new Dictionary<T, AStarNode<T>>();
 
 			// While there are elements in Open
 			while (_openSet.Count != 0)
@@ -151,13 +151,13 @@ namespace ChallengeCore.Challenges
 						if (((AStarNode<T>)nodeInOpen).CompareTo(nodeCandidate) > 0)
 						{
 							// Then replace old neighbor node with our replacement
-							_openSet.DecreaseKeyTyped(nodeInOpen, nodeCandidate);
+							_openSet.DecreaseKey(nodeInOpen, nodeCandidate);
 						}
 					}
 					else
 					{
 						// Neighbor is outside both Closed and Open sets so add it to Open
-						dictOpen[neighbor] = _openSet.AddTyped(new AStarNode<T>(neighbor, _targets, curOpenNode));
+						dictOpen[neighbor] = _openSet.Add(new AStarNode<T>(neighbor, _targets, curOpenNode));
 					}
 				}
 			}
