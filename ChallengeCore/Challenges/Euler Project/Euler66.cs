@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
-using NumberTheory;
 using static System.Console;
+using static NumberTheory.Pells;
+using static NumberTheory.Utilities;
 
 
 namespace ChallengeCore.Challenges
@@ -18,14 +19,13 @@ namespace ChallengeCore.Challenges
 
                 for (BigInteger i = 0; i < 1000; i++)
                 {
-                    var sqrt = NumberTheory.Utilities.IntegerSqrt(i);
+                    var sqrt = i.IntegerSqrt();
                     if (i == sqrt * sqrt)
                     {
                         continue;
                     }
 
-                    BigInteger x, y;
-                    NumberTheory.Pells.SolvePells(i, 1, out x, out y);
+                    SolvePells(i, 1, out var x, out _);
                     if (x > largest)
                     {
                         largest = x;

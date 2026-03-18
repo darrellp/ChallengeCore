@@ -19,6 +19,15 @@ namespace ChallengeCore
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private static Dictionary<string, string> mpChallengeToWebSite = new Dictionary<string, string>
+		{
+			{"Advent of Code 2020: Encoding Error (9)", "https://adventofcode.com/2020/day/9"},
+			{"ProgChallenges: Ant On a Chessboard", "https://onlinejudge.org/external/101/10161.pdf"},
+			{"ProgChallenges: Archeologist's Dilemma", "https://onlinejudge.org/external/7/701.pdf"},
+			{"ProgChallenges: Australian Voting",
+				"https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1083"}
+		};
+		
 		#region DllImports
 		// If the Target of the build changes then the output directory will change.  We reference this directory in the post-build
 		// action of CPP Challenges to copy it's dll into the solution directory which means that post-build command must be edited
@@ -58,6 +67,14 @@ namespace ChallengeCore
 
 			foreach (var test in challenges)
 			{
+				if (test.Uri is null)
+				{
+					var key = $"{test.Contest}: {test.Name}";
+					if (mpChallengeToWebSite.TryGetValue(key, out string uri))
+					{
+						test.Uri = new Uri(uri);
+					}
+				}
 				if (contests.ContainsKey(test.Contest))
 				{
 					contests[test.Contest].Add(test);

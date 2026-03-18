@@ -8,7 +8,7 @@ namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
-        [Challenge("Advent of Code 2020", "Encoding Error (9)", "https://adventofcode.com/2020/day/9")]
+        [Challenge("Advent of Code 2020", "Encoding Error (9)", null)]
         public class EncodingError : IChallenge
         {
             public void Solve()

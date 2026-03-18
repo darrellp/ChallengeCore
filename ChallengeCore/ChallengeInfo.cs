@@ -7,7 +7,7 @@ namespace ChallengeCore
 		internal string Name { get; }
 		internal string Contest { get; }
 		internal IChallenge Challenge { get; }
-		internal Uri Uri { get; }
+		internal Uri Uri { get; set; }
 
 		internal ChallengeInfo(string name, string contest, IChallenge challenge, Uri uri = null)
 		{

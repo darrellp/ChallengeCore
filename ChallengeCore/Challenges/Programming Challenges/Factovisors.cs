@@ -8,7 +8,7 @@ namespace ChallengeCore.Challenges
     public static partial class ChallengeClass
     {
         [Challenge("ProgChallenges", "Factovisors",
-            "http://www.programming-challenges.com/pg.php?page=downloadproblem&probid=110704&format=html")]
+            "https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1080")]
         public class Factovisors : IChallenge
         {
             public void Solve()
