@@ -8,8 +8,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "Interpreter",
-			"https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=974")]
+		[Challenge("ProgChallenges", "Interpreter")]
 		public class Interpreter : IChallenge
 		{
 			private int[] _ram;

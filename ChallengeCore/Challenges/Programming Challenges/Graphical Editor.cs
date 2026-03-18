@@ -8,8 +8,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "Graphical Editor",
-			"https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=1208")]
+		[Challenge("ProgChallenges", "Graphical Editor")]
 		public class GraphEd : IChallenge
 		{
 			List<List<char>> _image;

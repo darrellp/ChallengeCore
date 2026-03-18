@@ -5,8 +5,7 @@ namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
-        [Challenge("ProgChallenges", "Check the Check",
-            "http://www.programming-challenges.com/pg.php?page=downloadproblem&probid=110107&format=html")]
+        [Challenge("ProgChallenges", "Check the Check")]
         public class CheckTheCheck : IChallenge
         {
             private char[][] _board;

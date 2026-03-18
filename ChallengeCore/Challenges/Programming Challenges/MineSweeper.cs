@@ -8,8 +8,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "MineSweeper",
-			"https://onlinejudge.org/external/101/10189.pdf")]
+		[Challenge("ProgChallenges", "MineSweeper")]
 		public class MineSweeper : IChallenge
 		{
 			public void Solve()

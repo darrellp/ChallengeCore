@@ -8,8 +8,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "Reverse and Add",
-            "https://onlinejudge.org/external/100/10018.pdf")]
+		[Challenge("ProgChallenges", "Reverse and Add")]
 		public class ReverseAndAdd : IChallenge
 		{
 			public void Solve()

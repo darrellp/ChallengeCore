@@ -5,9 +5,8 @@ namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
-        [Challenge("ProgChallenges", "LCD Display",
-            "http://www.programming-challenges.com/pg.php?page=downloadproblem&probid=110104&format=html")]
-        public class LCDDisplay : IChallenge
+        [Challenge("ProgChallenges", "LC Display")]
+        public class LCDisplay : IChallenge
         {
             public void Solve()
             {

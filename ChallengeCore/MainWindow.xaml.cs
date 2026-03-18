@@ -19,13 +19,50 @@ namespace ChallengeCore
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		// Put here so we can update broken links more easily
 		private static Dictionary<string, string> mpChallengeToWebSite = new Dictionary<string, string>
 		{
 			{"Advent of Code 2020: Encoding Error (9)", "https://adventofcode.com/2020/day/9"},
 			{"ProgChallenges: Ant On a Chessboard", "https://onlinejudge.org/external/101/10161.pdf"},
 			{"ProgChallenges: Archeologist's Dilemma", "https://onlinejudge.org/external/7/701.pdf"},
-			{"ProgChallenges: Australian Voting",
-				"https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1083"}
+			{"ProgChallenges: Australian Voting", "https://onlinejudge.org/external/101/10142.pdf"},
+			{"ProgChallenges: Bicoloring", "https://onlinejudge.org/external/100/10004.pdf"},
+			{"ProgChallenges: Bigger Square Please", "https://onlinejudge.org/external/102/10270.pdf"},
+			{"ProgChallenges: Check the Check", "https://onlinejudge.org/external/101/10196.pdf"},
+			{"ProgChallenges: Crypt Kicker", "https://onlinejudge.org/external/8/843.pdf"},
+			{"ProgChallenges: Dog and Gopher", "https://onlinejudge.org/external/100/10010.pdf" },
+			{"ProgChallenges: Edit Step Ladder", "https://onlinejudge.org/external/100/10029.pdf"},
+			{"ProgChallenges: Erdos Numbers", "https://onlinejudge.org/external/100/10044.pdf"},
+			{"ProgChallenges: Factovisors", "https://onlinejudge.org/external/101/10139.pdf"},
+			{"ProgChallenges: File Fragmentation", "https://onlinejudge.org/external/101/10132.pdf"},
+			{"ProgChallenges: Graphical Editor", "https://onlinejudge.org/external/102/10267.pdf"},
+			{"ProgChallenges: Hartals", "https://onlinejudge.org/external/100/10050.pdf"},
+			{"ProgChallenges: How Many Fibs?", "https://onlinejudge.org/external/101/10183.pdf"},
+			{"ProgChallenges: Interpreter", "https://onlinejudge.org/external/100/10033.pdf"},
+			{"ProgChallenges: Is Bigger Smarter?", "https://onlinejudge.org/external/101/10131.pdf"},
+			{"ProgChallenges: Jolly Jumpers", "https://onlinejudge.org/external/100/10038.pdf"},
+			{"ProgChallenges: Knights of the Round Table", "https://onlinejudge.org/external/13/1364.pdf"},
+			{"ProgChallenges: LC Display", "https://onlinejudge.org/external/7/706.pdf"},
+			{"ProgChallenges: MineSweeper", "https://onlinejudge.org/external/101/10189.pdf"},
+			{"ProgChallenges: Ones", "https://onlinejudge.org/external/101/p10127.pdf"},
+			{"ProgChallenges: Pairsumonious Numbers", "https://onlinejudge.org/external/102/10202.pdf"},
+			{"ProgChallenges: Playing With Wheels", "https://onlinejudge.org/external/100/10067.pdf"},
+			{"ProgChallenges: Poker Hands", "https://onlinejudge.org/external/103/10315.pdf"},
+			{"ProgChallenges: Primary Arithmetic", "https://onlinejudge.org/external/100/10035.pdf"},
+			{"ProgChallenges: Reverse and Add", "https://onlinejudge.org/external/100/10018.pdf"},
+			{"ProgChallenges: Rope Crisis in Ropeland!", "https://onlinejudge.org/external/101/10180.pdf"},
+			{"ProgChallenges: Shoemaker's Problem", "https://onlinejudge.org/external/100/10026.pdf"},
+			{"ProgChallenges: Smith Numbers", "https://onlinejudge.org/external/100/10042.pdf"},
+			{"ProgChallenges: Stack 'em Up", "https://onlinejudge.org/external/102/10205.pdf"},
+			{"ProgChallenges: Stern-Brocot", "https://onlinejudge.org/external/100/10077.pdf"},
+			{"ProgChallenges: Summation of Four Primes", "https://onlinejudge.org/external/101/10168.pdf"},
+			{"ProgChallenges: The 3n + 1 Problem", "https://onlinejudge.org/external/1/100.pdf"},
+			{"ProgChallenges: The Monocycle", "https://onlinejudge.org/external/100/10047.pdf"},
+			{"ProgChallenges: The Trip", "https://onlinejudge.org/external/101/10137.pdf"},
+			{"ProgChallenges: Unidirectional TSP", "https://onlinejudge.org/external/1/116.pdf"},
+			{"ProgChallenges: Vito's Family", "https://onlinejudge.org/external/100/10041.pdf"},
+			{"ProgChallenges: WERTYU", "https://onlinejudge.org/external/100/10082.pdf"},
+			{"ProgChallenges: Where's Waldorf", "https://onlinejudge.org/external/100/10010.pdf"},
 		};
 		
 		#region DllImports

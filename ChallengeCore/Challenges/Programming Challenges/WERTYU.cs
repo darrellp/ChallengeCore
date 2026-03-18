@@ -8,8 +8,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "WERTYU",
-			"https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=1023")]
+		[Challenge("ProgChallenges", "WERTYU")]
 		// ReSharper disable once InconsistentNaming
 		public class WERTYU : IChallenge
 		{

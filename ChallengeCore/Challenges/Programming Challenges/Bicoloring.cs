@@ -8,8 +8,7 @@ namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
-        [Challenge("ProgChallenges", "Bicoloring",
-            "http://www.programming-challenges.com/pg.php?page=downloadproblem&probid=110901&format=html")]
+        [Challenge("ProgChallenges", "Bicoloring")]
         public class Bicoloring : IChallenge
         {
             public void Solve()

@@ -7,8 +7,7 @@ namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
-        [Challenge("ProgChallenges", "File Fragmentation",
-            "http://www.programming-challenges.com/pg.php?page=downloadproblem&probid=110306&format=html")]
+        [Challenge("ProgChallenges", "File Fragmentation")]
         public class FileFragmentation : IChallenge
         {
             public void Solve()

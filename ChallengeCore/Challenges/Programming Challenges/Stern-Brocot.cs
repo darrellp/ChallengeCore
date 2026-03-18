@@ -4,8 +4,7 @@ namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
-        [Challenge("ProgChallenges", "Stern-Brocot",
-            "http://www.programming-challenges.com/pg.php?page=downloadproblem&probid=110507&format=html")]
+        [Challenge("ProgChallenges", "Stern-Brocot")]
         public class SternBrocot : IChallenge
         {
             public void Solve()

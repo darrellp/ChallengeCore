@@ -6,8 +6,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "Edit Step Ladder",
-            "https://onlinejudge.org/external/100/10029.pdf")]
+		[Challenge("ProgChallenges", "Edit Step Ladder")]
 		public class EditStepLadder : IChallenge
 		{
 			public void Solve()

@@ -9,8 +9,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "Hartals",
-			"https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=991")]
+		[Challenge("ProgChallenges", "Hartals")]
 		public class Hartals : IChallenge
 		{
 			public void Solve()

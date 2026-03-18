@@ -6,8 +6,7 @@ namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
-        [Challenge("ProgChallenges", "Crypt Kicker",
-            "http://www.programming-challenges.com/pg.php?page=downloadproblem&probid=110204&format=html")]
+        [Challenge("ProgChallenges", "Crypt Kicker")]
         public class CryptKicker : IChallenge
         {
             private List<string> _arrangedWords;

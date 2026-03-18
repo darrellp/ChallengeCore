@@ -48,7 +48,6 @@
     <Folder Include="Challenges\Code Chef\" />
     <Folder Include="Challenges\Hacker Earth\" />
     <Folder Include="Challenges\Hacker Rank\" />
-    <Folder Include="Challenges\Programming Challenges\" />
     <Folder Include="Challenges\Sphere\" />
     <Folder Include="Challenges\Talent Buddy\" />
   </ItemGroup>

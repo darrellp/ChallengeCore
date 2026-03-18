@@ -9,8 +9,7 @@ namespace ChallengeCore.Challenges
 	// ReSharper disable AssignNullToNotNullAttribute
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "Playing With Wheels",
-			"https://onlinejudge.org/external/100/10067.pdf")]
+		[Challenge("ProgChallenges", "Playing With Wheels")]
 		public class PlayingWithWheels : IChallenge
 		{
 			public void Solve()

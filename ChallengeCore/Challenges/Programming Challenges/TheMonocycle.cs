@@ -9,8 +9,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "The Monocycle",
-			"https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=988")]
+		[Challenge("ProgChallenges", "The Monocycle")]
 		public class Monocycle : IChallenge
 		{
 			public void Solve()

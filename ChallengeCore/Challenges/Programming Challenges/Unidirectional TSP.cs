@@ -8,8 +8,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "Unidirectional TSP",
-			"https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=52")]
+		[Challenge("ProgChallenges", "Unidirectional TSP")]
 		public class UnidirectionalTsp : IChallenge
 		{
 			public void Solve()

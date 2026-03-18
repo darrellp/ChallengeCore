@@ -6,8 +6,7 @@ namespace ChallengeCore.Challenges
 {
     public static partial class ChallengeClass
     {
-        [Challenge("ProgChallenges", "Summation of Four Primes",
-            "http://www.programming-challenges.com/pg.php?page=downloadproblem&probid=110705&format=html")]
+        [Challenge("ProgChallenges", "Summation of Four Primes")]
         public class FourPrimes : IChallenge
         {
             public void Solve()

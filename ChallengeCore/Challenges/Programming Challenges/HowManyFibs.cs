@@ -8,9 +8,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "How Many Fibs?",
-
-			"https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1124")]
+		[Challenge("ProgChallenges", "How Many Fibs?")]
 		public class HowManyFibs : IChallenge
 		{
 			public void Solve()

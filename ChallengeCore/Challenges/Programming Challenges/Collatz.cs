@@ -7,8 +7,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "The 3n + 1 Problem",
-			"http://www.programming-challenges.com/pg.php?page=downloadproblem&probid=110101&format=html")]
+		[Challenge("ProgChallenges", "The 3n + 1 Problem")]
 		public class Collatz : IChallenge
 		{
 			public void Solve()

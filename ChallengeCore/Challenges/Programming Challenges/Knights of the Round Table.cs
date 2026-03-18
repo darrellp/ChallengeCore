@@ -8,8 +8,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "Knights of the Round Table",
-			"https://onlinejudge.org/external/13/1364.pdf")]
+		[Challenge("ProgChallenges", "Knights of the Round Table")]
 		public class KinghtsOfTheRoundTable : IChallenge
 		{
 			public void Solve()

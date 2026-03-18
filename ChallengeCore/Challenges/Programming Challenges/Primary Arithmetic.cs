@@ -8,8 +8,7 @@ namespace ChallengeCore.Challenges
 {
 	public static partial class ChallengeClass
 	{
-		[Challenge("ProgChallenges", "Primary Arithmetic",
-			"https://onlinejudge.org/external/100/10035.pdf")]
+		[Challenge("ProgChallenges", "Primary Arithmetic")]
 		public class PrimaryArithmetic : IChallenge
 		{
 			public void Solve()
